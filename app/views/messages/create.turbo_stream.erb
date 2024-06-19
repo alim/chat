@@ -1,0 +1,10 @@
+<%#
+  the turbo_stream.append method is being used to append the content of the
+  @message object to the HTML element with the ID "messages"
+  (see chat/app/views/rooms/show.html.erb). This involves adding the content
+  of a newly created message to an existing list of messages on the page
+  without needing a full page reload.
+
+  This template goes with the MessagesController#create action.
+%>
+<%= turbo_stream.append "messages", @message %>
