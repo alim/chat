@@ -1,8 +1,33 @@
-<h1>New Message</h1>
-<%= form_with(model: [@message.room, @message]) do |form| %>
-  <div class="field">
-    <%= form.text_field :content %>
-    <%= form.submit "Send"%>
-  </div>
-<% end %>
+<h1>Post New Message</h1>
+
+<turbo-frame id="new_message" target="_top">
+
+  <%#
+    The model: [@message.room, @message] specifies a nested model, where the
+    messages are nested within a room object.
+
+    data: { controller: "reset_form", action: "turbo:submit-end->reset_form" }:
+    This option sets custom attributes on the form element using a hash.
+    Here's what it does:
+
+      controller: "reset_form": This defines a JavaScript controller named
+      "reset_form" that will handle the form submission.
+
+      action: "turbo:submit-end->reset_form": This specifies an action to be
+      triggered by the JavaScript controller. Here, it uses Turbo Streams
+      syntax (turbo:submit-end) which fires after a form submission using
+      Turbo Frames is completed. The subsequent part (->reset_form) likely
+      calls a function named reset_form within the "reset_form" controller.
+  %>
+
+  <%= form_with(model: [@message.room, @message],
+  data:{ controller: "reset_form", action: "turbo:submit-end->reset_form"}) do |form| %>
+    <div class="field">
+      <%= form.text_field :content %>
+      <%= form.submit "Send"%>
+    </div>
+  <% end %>
+
+</turbo-frame>
+
 <%= link_to 'Back', @message.room %>

@@ -1,10 +1,37 @@
 <p id="notice" style="color: green"><%= notice %></p>
-<%= render @room %>
-<p>
-  <%= link_to "Edit", edit_room_path(@room) %>
-  <%= link_to "Back", rooms_path %>
-</p>
+
+<h2>Chat Room</h2>
+
+<%#
+  This turbo-frame is used after the edit view turbo frame is used to submit
+  a form to update a room. Since the Rails app will execute the show action
+  after the update action, the turbo-frame here must have the same id="room"
+  as the one in the edit action.
+%>
+<turbo-frame id="room">
+  <%= render @room %>
+  <p>
+    <%= link_to "Edit", edit_room_path(@room) %>
+
+    <%#
+      The "data-turbo-frame": "_top" redirects the controller to *break out* of
+      current turbo frame and re-render the page like a normal full page
+      refresh action.
+    %>
+    <%= link_to "Back", rooms_path, "data-turbo-frame": "_top" %>
+  </p>
+</turbo-frame>
+
+<h2>Messages</h2>
 <div id="messages">
   <%= render @room.messages %>
 </div>
-<%= link_to "New Message", new_room_message_path(@room) %>
+
+<%#
+  Again the target="_top" parameter enables the links and submit action to
+  breakout of the "new_message" turbo-frame. This will enable a refresh of
+  this "show" view after a new message is submitted. See the messages_controller
+  "create" action to see the redirect to the "show" page.
+%>
+<turbo-frame id="new_message" src="<%= @room.id %>/messages/new" target="_top">
+</turbo-frame>
