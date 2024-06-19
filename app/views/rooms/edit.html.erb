@@ -1,6 +1,17 @@
 <h1>Editing room</h1>
-<%= render "form", room: @room %>
-<br>
+
+<%#
+  The form is rendered in a turbo-frame with an id="room". Normally after
+  submitting the form a typical Rails application would redirect the browser
+  to the show action. With Turbo Frames, the show action should have a
+  turbo-frame with the same id="room". This is the frame that will be updated
+  after the form submission.
+%>
+<turbo-frame id="room">
+  <%= render "form", room: @room %>
+  <br>
+</turbo-frame>
+
 <div>
   <%= link_to "Show this room", @room %> |
   <%= link_to "Back to rooms", rooms_path %>
