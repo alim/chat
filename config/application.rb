@@ -23,5 +23,7 @@ module Chat
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # config.hosts << 'reimagined-space-waffle-g4wjw57j9h9jw4-3000.app.github.dev'
   end
 end
