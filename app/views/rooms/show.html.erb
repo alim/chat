@@ -1,4 +1,5 @@
 <p id="notice" style="color: green"><%= notice %></p>
+<%= turbo_stream_from @room %>
 
 <h2>Chat Room</h2>
 
@@ -8,7 +9,8 @@
   after the update action, the turbo-frame here must have the same id="room"
   as the one in the edit action.
 %>
-<turbo-frame id="room">
+<%# <turbo-frame id="room"> %>
+<%= turbo_frame_tag "room" do %>
   <%= render @room %>
   <p>
     <%= link_to "Edit", edit_room_path(@room) %>
@@ -20,7 +22,8 @@
     %>
     <%= link_to "Back", rooms_path, "data-turbo-frame": "_top" %>
   </p>
-</turbo-frame>
+<% end %>
+<%# </turbo-frame> %>
 
 <h2>Messages</h2>
 <div id="messages">
