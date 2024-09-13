@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_021220) do
+ActiveRecord::Schema[7.2].define(version: 2024_05_31_021220) do
   create_table "messages", force: :cascade do |t|
     t.integer "room_id", null: false
     t.text "content"
